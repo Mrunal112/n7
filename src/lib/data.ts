@@ -1,7 +1,7 @@
 export const navLinks = [
   { label: "Solutions", href: "#solutions", hasDropdown: true },
   { label: "Resources", href: "#insights", hasDropdown: true },
-  { label: "About Us", href: "#footer" },
+  { label: "About Us", href: "#footer", hasDropdown: false },
 ] as const;
 
 export const trustedByLogos = [
