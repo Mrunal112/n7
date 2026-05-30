@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-navy: #050a0e;
+  --color-brand-blue: #0066ff;
+  --color-brand-cyan: #00aeef;
+  --color-text-muted: #94a3b8;
+  --page-bg: #050a0e;
+  --header-height: 94px;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Offset anchor jumps so content doesn't hide under the fixed header */
+  scroll-padding-top: var(--header-height);
+}
+
+html,
+body {
+  /* Prevent horizontal scroll caused by decorative glow blobs */
+  overflow-x: hidden;
+}
+
+body {
+  @apply text-white antialiased;
+  background-color: var(--page-bg);
+}
+
+/* All section anchors respect header offset */
+section[id] {
+  scroll-margin-top: calc(var(--header-height) + 16px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* One-page base — layered soft glows (Frame 74) */
+.page-canvas {
+  background-color: var(--page-bg);
+  background-image:
+    radial-gradient(
+      ellipse 100% 70% at 72% 6%,
+      rgba(0, 102, 255, 0.22) 0%,
+      transparent 58%
+    ),
+    radial-gradient(
+      ellipse 80% 55% at 18% 32%,
+      rgba(0, 80, 180, 0.08) 0%,
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 90% 65% at 82% 48%,
+      rgba(0, 102, 255, 0.14) 0%,
+      transparent 55%
+    ),
+    radial-gradient(
+      ellipse 70% 50% at 28% 72%,
+      rgba(0, 90, 200, 0.1) 0%,
+      transparent 50%
+    );
+}
+
+@layer utilities {
+  .text-gradient-logo {
+    @apply bg-logo-gradient bg-clip-text text-transparent;
+  }
+
+  .glass-card {
+    @apply rounded-2xl border border-white/15 bg-surface-glass shadow-glass backdrop-blur-xl;
+  }
+
+  .watermark-text {
+    -webkit-text-stroke: 1.5px rgba(0, 102, 255, 0.38);
+    color: transparent;
+  }
+  .watermark-text-faded {
+    -webkit-text-stroke: 2px rgba(0, 102, 255, 0.18);
+    color: transparent;
+    opacity: 0.18;
+    filter: blur(0.5px);
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* Light band — flat light-blue, no dark fade (siblings provide dark bg) */
+  .light-section-flow {
+    background-color: #eaf3fb;
+    background-image:
+      radial-gradient(
+        circle at 8% 92%,
+        rgba(0, 102, 255, 0.07) 0%,
+        transparent 40%
+      ),
+      radial-gradient(
+        circle at 94% 10%,
+        rgba(0, 174, 239, 0.06) 0%,
+        transparent 38%
+      );
+  }
+
+  /* No-op now — kept so existing markup compiles; flow class handles blobs. */
+  .light-section-blobs {
+    /* layered into .light-section-flow */
+  }
+
+  .hero-radial {
+    background: radial-gradient(
+      ellipse 55% 65% at 72% 42%,
+      rgba(0, 102, 255, 0.55) 0%,
+      rgba(0, 102, 255, 0.15) 40%,
+      transparent 72%
+    );
+  }
+
+  /* Gentle floating animation for phone mockups */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  .animate-float-delayed {
+    animation: float 6s ease-in-out -3s infinite;
+  }
+
+  /* Pause marquee on hover */
+  .marquee-pause:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
